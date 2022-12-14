@@ -1,26 +1,30 @@
+import ProjectFile from "../../Classes/File";
+import Utils from "../../utils";
+import VcxprojFile from "./VcxprojFile";
 
-export default class VsxprojFile {
+export default class SlnFile extends ProjectFile {
     Name: string;
-    Projects: {confGUID: string, proj: VsxprojFile}[];
+    Projects: {confGUID: string, proj: VcxprojFile}[];
     GUID: string;
 
     constructor() {
+      super();
       this.GUID = this.GenerateGUID();
     }
 
     GenerateGUID(): string {
-        return "";
+        return Utils.GenerateGUID();
     }
 
     SetName(name: string) {
         this.Name = name;
     }
 
-    AddProject(proj: VsxprojFile) {
+    AddProject(proj: VcxprojFile) {
         this.Projects.push({confGUID: this.GenerateGUID(), proj: proj});
     }
 
-    GetProjectPath(proj: VsxprojFile): string {
+    GetProjectPath(proj: VcxprojFile): string {
       return ""
     }
 

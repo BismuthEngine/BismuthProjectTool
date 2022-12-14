@@ -5,6 +5,16 @@ import { pathToFileURL } from "url";
 import VSProjBuilder from "./Builders/VSProj/VSProjBuilder";
 
 export default class Utils {
+    static GetPlatformDef(Target: Target): string {
+        switch(Target.platform) {
+            case "Win32":
+                return "PLATFORM_WINDOWS";
+            case "Unix":
+                return "PLATFORM_LINUX";
+            case "Mach":
+                return "PLATFORM_MAC";
+        }
+    }
 
     static CreateBuilderInstance(proj: ProjectTarget, target: Target) {
         switch (proj) {
@@ -105,5 +115,13 @@ export default class Utils {
         }
 
         rmdirSync(path);
+    }
+
+    static GetRelativePath(path: string, root: string): string {
+        return "";
+    }
+
+    static GenerateGUID(): string {
+        return crypto.randomUUID();
     }
 }

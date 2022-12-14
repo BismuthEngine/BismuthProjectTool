@@ -9,7 +9,8 @@ interface RawModule {
     object: Module | Deploy,
     type: ModuleType,
     hash: string
-    domain: RootModule
+    domain: RootModule,
+    files: string[] 
 }
 
 interface ModuleList {

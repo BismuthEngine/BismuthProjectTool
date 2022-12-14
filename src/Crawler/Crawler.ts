@@ -57,7 +57,8 @@ export default class Crawler {
                         domain: domain,
                         object: (new (await this.ImportClass(filepath))(this.Target)) as Module,
                         type: "Module",
-                        hash: await this.CollectHash(path)
+                        hash: await this.CollectHash(path),
+                        files: []
                     })
                 } else if (/\.deploy\.js/.test(filepath))
                 {
@@ -66,7 +67,8 @@ export default class Crawler {
                         domain: domain,
                         object: (new (await this.ImportClass(filepath))(this.Target)) as Deploy,
                         type: "Deploy",
-                        hash: ""
+                        hash: "",
+                        files: []
                     })
                 }
             }
