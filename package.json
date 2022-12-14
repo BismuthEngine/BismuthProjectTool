@@ -1,0 +1,22 @@
+{
+  "name": "bismuth-project-tool",
+  "version": "1.0.0",
+  "description": "Bismuth engine & projects project files generation tool",
+  "type": "module",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "SasisaDev",
+  "license": "GPL-2.0-only",
+    "dependencies": {
+    "@types/node": "^18.11.10",
+    "chalk": "^5.1.2",
+    "typescript": "^4.9.3"
+  },
+  "bin": {
+    "bismuth-build-tool": "./start.js"
+  }
+}
