@@ -1,12 +1,12 @@
-import ProjectFile from "../../Classes/File";
+import ProjectFile from "../../Classes/File.js";
 import { RootModule } from "../../Types/ModuleList";
-import Utils from "../../utils";
+import Utils from "../../utils.js";
 
 export default class VcxprojFile extends ProjectFile {
     Name: string;
-    Includes: string[];
-    Defines: string[];
-    Files: string[];
+    Includes: string[] = [];
+    Defines: string[] = [];
+    Files: string[] = [];
     GUID: string;
     Domain: RootModule
 
@@ -46,8 +46,8 @@ export default class VcxprojFile extends ProjectFile {
             Includes += `${incl};`;
         })
 
-        let content = `
-        <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns='http://schemas.microsoft.com/developer/msbuild/2003'>
+        let content = `<?xml version="1.0" encoding="utf-8"?>
+        <Project DefaultTargets="Build" ToolsVersion="17.0" xmlns='http://schemas.microsoft.com/developer/msbuild/2003'>
 
           <ItemGroup Label="ProjectConfigurations">
             <ProjectConfiguration Include="Debug">
@@ -61,11 +61,14 @@ export default class VcxprojFile extends ProjectFile {
           </ItemGroup>
 
           <PropertyGroup Label="Globals">
-            <VCProjectVersion>16.0</VCProjectVersion>
-            <Keyword>Win32Proj</Keyword>
+            <VCProjectVersion>17.0</VCProjectVersion>
+            <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
+            <Keyword>MakeFileProj</Keyword>
+            <PlatformToolset>v143</PlatformToolset>
             <ProjectGuid>{${this.GUID}}</ProjectGuid>
             <RootNamespace>${this.Name}</RootNamespace>
             <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+            <TargetRuntime>Native</TargetRuntime>
           </PropertyGroup>
           <Import Project="$(VCTargetsPath)\Microsoft.Cpp.default.props" />
           
@@ -149,7 +152,7 @@ export default class VcxprojFile extends ProjectFile {
           <ItemGroup>
             ${this.Files.map(path=>(
               `<ClCompile Include="${Utils.GetRelativePath(path, this.Path)}" />`
-            ))}
+            )).join('')}
           </ItemGroup>
 
           <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

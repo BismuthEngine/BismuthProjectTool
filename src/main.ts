@@ -50,6 +50,11 @@ let target: Target = {
     engine: engineProject.proj!
 }
 
+if(target.verbose) {
+    console.log("Target object is: ");
+    console.log({...target, EnvArgs: undefined});
+}
+
 const CrawlerInstance = new Crawler(target);
 
 CrawlerInstance.CollectModules()
@@ -61,9 +66,9 @@ CrawlerInstance.CollectModules()
 
     })
     .catch((reason) => {
-
+        console.error(reason);
     });
 })
 .catch(reason => {
-    
+    console.error(reason);
 });

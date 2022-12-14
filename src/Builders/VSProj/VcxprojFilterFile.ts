@@ -1,5 +1,5 @@
-import ProjectFile from "../../Classes/File";
-import VcxprojFile from "./VcxprojFile";
+import ProjectFile from "../../Classes/File.js";
+import VcxprojFile from "./VcxprojFile.js";
 
 export default class VcxprojFilterFile extends ProjectFile {
     Project: VcxprojFile;

@@ -1,8 +1,9 @@
 import { existsSync, lstatSync, readdirSync, readFileSync, rmdirSync, statSync, unlinkSync } from "fs";
-import Module from "./Classes/Module";
+import Module from "./Classes/Module.js";
 import { join, resolve } from "path";
 import { pathToFileURL } from "url";
-import VSProjBuilder from "./Builders/VSProj/VSProjBuilder";
+import { randomUUID } from "crypto";
+import VSProjBuilder from "./Builders/VSProj/VSProjBuilder.js";
 
 export default class Utils {
     static GetPlatformDef(Target: Target): string {
@@ -122,6 +123,6 @@ export default class Utils {
     }
 
     static GenerateGUID(): string {
-        return crypto.randomUUID();
+        return randomUUID();
     }
 }

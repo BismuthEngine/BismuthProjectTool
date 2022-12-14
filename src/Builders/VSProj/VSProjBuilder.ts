@@ -1,11 +1,11 @@
 import { dirname, resolve } from "path";
-import Deploy from "../../Classes/Deploy";
+import Deploy from "../../Classes/Deploy.js";
 import { ModuleList, MultiModuleList, RawModule } from "../../Types/ModuleList";
-import Utils from "../../utils";
-import Builder from "../builder"
-import SlnFile from "./SlnFile";
-import VcxprojFile from "./VcxprojFile";
-import VcxprojFilterFile from "./VcxprojFilterFile";
+import Utils from "../../utils.js";
+import Builder from "../builder.js"
+import SlnFile from "./SlnFile.js";
+import VcxprojFile from "./VcxprojFile.js";
+import VcxprojFilterFile from "./VcxprojFilterFile.js";
 
 
 
@@ -20,7 +20,7 @@ export default class VSProjBuilder extends Builder {
     protected QueueProject(Name: string, Solution: SlnFile, moduleList: ModuleList) {
         let EngineProject: VcxprojFile = new VcxprojFile();
                 EngineProject.SetGUID(Utils.GenerateGUID());
-                EngineProject.SetPath(resolve(this.Target.enginePath, `./Intermediate/${Name}.vcxproj`));
+                EngineProject.SetPath(resolve(this.Target.projectPath, `./Intermediate/Projects/${Name}.vcxproj`));
                 EngineProject.SetName(Name);
                 EngineProject.AddDefinition(Utils.GetPlatformDef(this.Target));
 
@@ -43,7 +43,7 @@ export default class VSProjBuilder extends Builder {
                 Solution.AddProject(EngineProject);
     
                 this.QueuedFiles.push(EngineProject);
-                this.QueuedFiles.push(EngineProjectFilter);
+                //this.QueuedFiles.push(EngineProjectFilter);
                 this.QueuedFiles.push(Solution);
     }
 
@@ -51,6 +51,7 @@ export default class VSProjBuilder extends Builder {
         return new Promise<void>((res, rej) => {
             try {
                 let Solution: SlnFile = new SlnFile();
+                Solution.Path = resolve(this.Target.projectPath, `./${this.Target.project.Name}.sln`);
                 Solution.GenerateGUID();
                 
                 if(this.Target.includeEngine) {
