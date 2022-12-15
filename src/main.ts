@@ -6,6 +6,7 @@ import { exit } from "process";
 import Crawler from "./Crawler/Crawler.js";
 import { MultiModuleList } from "./Types/ModuleList.js";
 import Builder from "./Builders/builder.js";
+import { dirname } from "path";
 
 let args: Arguments = ParseArguments(process.argv);
 
@@ -14,22 +15,22 @@ var engineProject: {path?: string, proj?: Project} = {};
 
 // Retrieve project file
 try {
-    project.path = args.Path;
-    project.proj = Utils.ReadJSON(Utils.GetFilesFiltered(args.Path, /.project.json/)[0]);
+    project.path = dirname(args.Path);
+    project.proj = Utils.ReadJSON(Utils.GetFilesFiltered(project.path, /\.bismuth/)[0]);
     if(project.proj != undefined) {
         if(project.proj!.EnginePath) {
             // Fetch engine's project file
             try {
                 engineProject.path = project.proj!.EnginePath;
-                engineProject.proj = Utils.ReadJSON(Utils.GetFilesFiltered(project.proj!.EnginePath, /.project.json/)[0]);
+                engineProject.proj = Utils.ReadJSON(Utils.GetFilesFiltered(project.proj!.EnginePath, /\.bismuth/)[0]);
             } catch (err) {
-                console.log(chalk.redBright.bold("[ERROR] ") + chalk.redBright("No engine's .project.json file found! Check that engine is installed and reference is updated."));
+                console.log(chalk.redBright.bold("[ERROR] ") + chalk.redBright("No engine's .bismuth file found! Check that engine is installed and reference is updated."));
                 exit(-1);
             }
         }
     }
 } catch (err) {
-    console.log(chalk.redBright.bold("[ERROR] ") + chalk.redBright("No correct .project.json file provided!"));
+    console.log(chalk.redBright.bold("[ERROR] ") + chalk.redBright("No correct .bismuth file provided!"));
     exit(-1);
 }
 
