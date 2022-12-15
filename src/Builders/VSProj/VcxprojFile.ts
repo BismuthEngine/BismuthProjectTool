@@ -151,7 +151,7 @@ export default class VcxprojFile extends ProjectFile {
 
           <ItemGroup>
             ${this.Files.map(path=>(
-              `<ClCompile Include="${Utils.GetRelativePath(path, this.Path)}" />`
+              `<ClCompile Include="${Utils.GetRelativePath(path, this.Path)}" />\n`
             )).join('')}
           </ItemGroup>
 

@@ -36,6 +36,10 @@ export default class VSProjBuilder extends Builder {
                     for(let incl of (<Deploy>(module.object)).Includes) {
                         EngineProject.AddInclude(incl);
                     }
+
+                    for(let path of module.files) {
+                        EngineProject.AddFile(path);
+                    }
                 }
                 
                 let EngineProjectFilter: VcxprojFilterFile = new VcxprojFilterFile(EngineProject);

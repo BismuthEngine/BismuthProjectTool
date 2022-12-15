@@ -1,6 +1,6 @@
 import { existsSync, lstatSync, readdirSync, readFileSync, rmdirSync, statSync, unlinkSync } from "fs";
 import Module from "./Classes/Module.js";
-import { join, resolve } from "path";
+import { join, relative, resolve } from "path";
 import { pathToFileURL } from "url";
 import { randomUUID } from "crypto";
 import VSProjBuilder from "./Builders/VSProj/VSProjBuilder.js";
@@ -75,8 +75,8 @@ export default class Utils {
             var filename = resolve(path, files[i]);
             var stat = lstatSync(filename);
             if (stat.isDirectory()) {
-                if(recursive) {
-                    this.GetFilesFiltered(filename, filter, recursive);
+                if(recursive == true) {
+                    retfiles.concat(this.GetFilesFiltered(filename, filter, recursive));
                 }
             } else if (filter.test(filename)) {
                 retfiles.push(filename);
@@ -119,7 +119,7 @@ export default class Utils {
     }
 
     static GetRelativePath(path: string, root: string): string {
-        return "";
+        return relative(root, path);
     }
 
     static GenerateGUID(): string {

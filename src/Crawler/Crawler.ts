@@ -52,23 +52,27 @@ export default class Crawler {
                     await this.CollectFolder(filepath, modlist, domain);
                 } else if (/\.module\.js/.test(filepath))
                 {
+                    let fFiles = Utils.GetFilesFiltered(path, /(\.cpp$)|(\.cppm$)|(\.h$)|(\.hpp$)|(\.ixx$)|(\.module.js$)|(\.deploy.js$)/i, true);
+
                     modlist.Modules.push({
                         path: filepath,
                         domain: domain,
                         object: (new (await this.ImportClass(filepath))(this.Target)) as Module,
                         type: "Module",
                         hash: await this.CollectHash(path),
-                        files: []
+                        files: fFiles
                     })
                 } else if (/\.deploy\.js/.test(filepath))
                 {
+                    let fFiles = Utils.GetFilesFiltered(path, /(\.cpp$)|(\.cppm$)|(\.h$)|(\.hpp$)|(\.ixx$)|(\.module.js$)|(\.deploy.js$)/i, true);
+
                     modlist.Deploys.push({
                         path: filepath,
                         domain: domain,
                         object: (new (await this.ImportClass(filepath))(this.Target)) as Deploy,
                         type: "Deploy",
                         hash: "",
-                        files: []
+                        files: fFiles
                     })
                 }
             }
