@@ -1,3 +1,4 @@
+import { dirname } from "path";
 import ProjectFile from "../../Classes/File.js";
 import { RootModule } from "../../Types/ModuleList";
 import Utils from "../../utils.js";
@@ -151,7 +152,7 @@ export default class VcxprojFile extends ProjectFile {
 
           <ItemGroup>
             ${this.Files.map(path=>(
-              `<ClCompile Include="${Utils.GetRelativePath(path, this.Path)}" />\n`
+              `<ClCompile Include="${Utils.GetRelativePath(path, dirname(this.Path))}" />\n`
             )).join('')}
           </ItemGroup>
 
